@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: black;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#scores {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 32px;
+}
+
+#game {
+    flex-grow: 1;
+    border-top: 1px solid white;
+    break-before: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#pong {
+    width: 1200px;
+    height: 600px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    position: relative;
+}
+
+#halfcourt {
+    height: 100%;
+    width: 1px;
+    margin: auto;
+    border-left: 1px dashed white;
+}
+
+.paddle {
+    width: 10px;
+    background-color: white;
+    position: absolute;
+}
+
+#player1 {
+    left: 2px;
+}
+
+#player2 {
+    right: 2px;
+}
+
+#ball {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: white;
+}
+
+#who {
+    font-size: .8rem;
+    text-align: center;
+}
+
+#controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: .8rem;
+}

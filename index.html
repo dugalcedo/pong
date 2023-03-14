@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pong</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="controls">
+        <div>
+            SPACE = start/pause
+        </div>
+        <div>
+            W/S = move p1
+        </div>
+        <div>
+            UP/DOWN = move p2
+        </div>
+        <div>
+            R = reset
+        </div>
+        <div>
+            C = toggle CPU (not working yet)
+        </div>
+    </div>
+    <div id="scores">
+        <div id="p1Score" class="score">
+            0
+        </div>
+        <div id="who">
+            HUMAN<br>OPPONENT
+        </div>
+        <div id="p2Score" class="score">
+            0
+        </div>
+    </div>
+    <div id="game">
+        <div id="pong">
+            <div id="player1" class="paddle"></div>
+            <div id="halfcourt"></div>
+            <div id="ball"></div>
+            <div id="player2" class="paddle"></div>
+        </div>
+    </div>
+</body>
+</html>
