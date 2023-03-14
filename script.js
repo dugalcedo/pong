@@ -15,9 +15,13 @@ let padding = 4
 
 let roundHits = 0
 
-let xMin = Math.round(ballSpeed/4)
+let xMin = () => {return Math.round(ballSpeed/8)}
 
 let cpuPlayer = false
+
+let audio1 = new Audio ('./1.wav')
+let audio2 = new Audio ('./2.wav')
+let audio3 = new Audio ('./3.wav')
 
 class Pong {
     constructor() {
@@ -101,12 +105,14 @@ class Ball {
 
     move() {
 
+
         let p1rect
         let p2rect
         let rect
 
         if (this.collisions.top || this.collisions.bottom) {
             this.direction[1] *= -1
+            audio2.play()
         }
         
         let newX = this.left + this.direction[0]
@@ -161,11 +167,44 @@ class Ball {
     }
 
     bounceOffPlayer(playerRect, rect) {
-        this.direction[0] *= -1
+        let [x, y] = this.direction
+        let xRight = x > 0
+        let yDown = y > 0
+        let ballCenter = (rect.top + rect.bottom) / 2
+        let paddleCenter = (playerRect.top + playerRect.bottom) / 2
+        let edge = (y > 0 ? ballCenter - paddleCenter : paddleCenter - ballCenter) / (paddleSize/2)
+        let newX = x
+        switch(true) {
+            case edge > 0.75:
+                newX = ballSpeed * 0.75
+                break
+            case edge > 0.5:
+                newX = ballSpeed * 0.67
+                break
+            case edge > 0.25:
+                newX = ballSpeed * 0.58
+                break
+            case edge > -0.25:
+                newX = ballSpeed * 0.5
+                break
+            case edge > -0.5:
+                newX = ballSpeed * 0.47
+                break
+            case edge > -0.75:
+                newX = ballSpeed * 0.33
+                break
+            default:
+                newX = ballSpeed * 0.25
+                break
+        }
+        newX = Math.round(newX)
+        this.direction[0] = newX * (xRight ? -1 : 1)
+        this.direction[1] = (ballSpeed - Math.abs(newX)) * (yDown ? 1 : -1)
         roundHits ++
         rampUp()
         this.collisions.p1 = false
         this.collisions.p2 = false
+        audio1.play()
     }
 
     checkForPlayerCollissions(p1rect, p2rect, rect) {
@@ -191,11 +230,11 @@ class Ball {
     }
 
     speedUp() {
-        ballSpeed += 1
+        ballSpeed += 2
         let [x, y] = this.direction
         this.direction = [
-            (ballSpeed/2) * (x > 0 ? 1 : -1),
-            (ballSpeed/2) * (y > 0 ? 1 : -1)
+            x + (x > 0 ? 1 : -1),
+            y + (y > 0 ? 1 : -1)
         ]
     }
 
@@ -266,6 +305,7 @@ function point(is2) {
     el.innerText = parseInt(el.innerText) + 1
     ball.reset(is2 ? 1 : 2)
     roundHits = 0
+    audio3.play()
 }
 
 function resetPoints() {
@@ -274,7 +314,7 @@ function resetPoints() {
 }
 
 function rampUp() {
-    paddleSpeed += 1
+    paddleSpeed += 2
     ball.speedUp()
     // paddleSize = paddleSize <= 50 ? 50 : paddleSize - 1
 }
